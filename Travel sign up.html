@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Mag - Sign Up</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your custom styles or use inline styles -->
+    <style>
+        body {
+            background-image: url('https://i.imgur.com/qA1CvOX.gif');
+            background-size: cover;
+            background-position: fixed;
+            color: #fff; /* Set text color to white */
+            font-family: Arial, sans-serif; /* Use a clean sans-serif font */
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
+            border-radius: 10px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for container */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; /* Bootstrap primary blue color */
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #ccc;
+        }
+		.eye-icon2{
+		 position: absolute;
+		    left: 930px;
+		    top: 75.4%; /* Align the eye button vertically */
+		    transform: translateY(-49%);
+		    cursor: pointer;
+		    width: 20px; /* Set the width of the eye icon */
+		    height: 20px; /* Set the height of the eye icon */
+			}
+		.eye-icon1 {
+		    position: absolute;
+		    left: 930px;
+		    top: 65.3%; /* Align the eye button vertically */
+		    transform: translateY(-49%);
+		    cursor: pointer;
+		    width: 20px; /* Set the width of the eye icon */
+		    height: 20px; /* Set the height of the eye icon */
+		}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sign Up for Travel Mag</h1>
+    <form action="signup_process.php" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+            <small>Enter 10-digit phone number</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" onkeyup="checkPasswordStrength()">
+			<img class="eye-icon1" src="https://cdn.dribbble.com/users/141880/screenshots/2112209/eyeball-menu.gif" alt="Toggle Password Visibility" onclick="togglePasswordVisibility('password')">
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password:</label>     
+            <input type="password" id="confirm-password" name="confirm-password" onkeyup="checkPasswordMatch()">
+			<img class="eye-icon2" src="https://cdn.dribbble.com/users/141880/screenshots/2112209/eyeball-menu.gif" alt="Toggle Password Visibility" onclick="togglePasswordVisibility('confirm-password')">
+        </div>
+        <div id="password-strength"></div> <!-- Container to display password strength -->
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+
+<script>
+    function togglePasswordVisibility(fieldId) {
+        var passwordField = document.getElementById(fieldId);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+
+    function checkPasswordStrength() {
+        var password = document.getElementById("password").value;
+        var strengthText = document.getElementById("password-strength");
+        
+        // Define regex patterns for password strength
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+        var mediumRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})");
+        
+        if (strongRegex.test(password)) {
+            strengthText.textContent = "Strong password";
+            strengthText.style.color = "green";
+        } else if (mediumRegex.test(password)) {
+            strengthText.textContent = "Medium password";
+            strengthText.style.color = "orange";
+        } else {
+            strengthText.textContent = "Weak password";
+            strengthText.style.color = "red";
+        }
+    }
+
+    function checkPasswordMatch() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+        var matchText = document.getElementById("password-match");
+
+        if (password === confirmPassword && password !== '') {
+            matchText.textContent = "Passwords match";
+            matchText.style.color = "green";
+        } else {
+            matchText.textContent = "Passwords do not match";
+            matchText.style.color = "red";
+        }
+    }
+</script>
+
+</body>
+</html>
